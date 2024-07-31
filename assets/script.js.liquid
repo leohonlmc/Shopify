@@ -1,0 +1,15 @@
+// URL Update: ● Update the URL to reflect the selected variant using the History API without reloading the page.
+
+document.addEventListener("DOMContentLoaded", function () {
+  var variantSelect = document.getElementById("variant-select");
+
+  variantSelect.addEventListener("change", function () {
+    var selectedOption = variantSelect.options[variantSelect.selectedIndex];
+    var newUrl = selectedOption.getAttribute("data-url");
+
+    // Update the URL in the browser without reloading the page
+    if (newUrl !== window.location.href) {
+      history.pushState(null, "", newUrl);
+    }
+  });
+});

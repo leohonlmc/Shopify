@@ -1,7 +1,7 @@
-{% comment %} <h2>{{ collections['frontpage'].title }}</h2> {% endcomment %}
+{% comment %} Dynamic Product Details START {% endcomment %}
 
 <div class="sale-img-div"> 
-    <img src="{{ 'sale.jpg' | asset_url }}" alt="Sale"/>
+    {% comment %} <img src="{{ 'sale.jpg' | asset_url }}" alt="Sale"/> {% endcomment %}
 </div>
 
 <br/>
@@ -10,11 +10,13 @@
     <h3>Popular items</h3>
     <div class="product-list">
 
-        {% for product , index in collections['frontpage'].products %}
+        {% comment %} C). Looping Through Collections: How would you loop through a collection of products and display {% endcomment %}
+        {% comment %} each product's title in a Shopify theme? {% endcomment %}
+
+        {% for product in collections['frontpage'].products %}
         <div class="product-item"> 
             <a href="{{ product.url }}">
                 <img class="product-img" src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}">
-                <span class="product-title">{{ product.title }}</span>
                 <p>{{ product.title }}</p>
                 <p>CAD {{ product.price | money }}</p>
             </a>
@@ -22,3 +24,7 @@
         {% endfor %}
     </div>
 </div>
+
+{% comment %} Dynamic Product Details END {% endcomment %}
+
+{% comment %} Static Product Details START {% endcomment %}

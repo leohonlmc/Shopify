@@ -1,32 +1,34 @@
-<div class="main"> 
-
-<div class="row">
-    
-    <div class="col-lg-6"> 
-        <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title }}">
-    </div>
-
-    <div class="col-lg-6 product-info"> 
-        <h1>{{product.title}}</h1>
-        <p>CAD {{product.price | money}}</p>
-        <br/>
-        <div>
-            {{product.description}}
+<div class="main border-radius">
+    <div class="row">
+        <div class="col-lg-6"> 
+            <img class="product-img" src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title }}">
         </div>
+        <div class="col-lg-6 product-info"> 
+            <h1>{{ product.title }}</h1>
+            <p>CAD {{ product.price | money }}</p>
+            <div>{{ product.description }}</div>
 
-        <br/>
+            <br/>
 
-        {% form 'product', product %}
-            <select name="id">
-                {% for variant in  product.variants %}
-                    <option class="options" value={{ variant.id }}>
-                        {{ variant.title }} - {{ variant.price | money }}
-                    </option>
-                {% endfor %}
-            </select> 
+            {% form 'product', product %}
+                <select id="variant-select" name="id">
+                    {% for variant in product.variants %}
+                        <option class="options" value="{{ variant.id }}" data-url="{{ product.url | append: '?variant=' | append: variant.id }}" {% if variant.inventory_quantity <= 0 %}disabled{% endif %}>
+                            {{ variant.title }} - {{ variant.price | money }}
+                            {% if variant.inventory_quantity <= 0 %}
+                                (Out of stock)
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
 
-            <button class="cart-btn" type="submit">Add to cart</button>
-        {% endform %}
+                {% assign first_variant = product.variants.first %}
+                {% if first_variant.inventory_quantity > 0 %}
+                    <button class="cart-btn black" type="submit">Add to cart</button>
+                {% else %}
+                    <button class="cart-btn grey" type="button" disabled>Out of stock</button>
+                {% endif %}
+            {% endform %}
         </div>
     </div>
 </div>

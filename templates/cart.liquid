@@ -1,31 +1,56 @@
-{% form 'cart', cart %}
+<div class="main border-radius">
+    <h1>Cart</h1>
+    <br/>
+    <br/>
 
-<div class="main"> 
+    {% form 'cart', cart %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <td>
+                        <img src="{{ item.image | product_img_url: 'medium' }}" alt="{{ item.title }}">
+                    </td>
+                    <td>{{ item.price | money }}</td>
+                    <td>
+                        {% assign variant = item.variant %}
+                        {% assign size = variant.options[0] %}
+                        {{ size }}
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.line_price | money }}</td>
+                    <td><a href="{{ item.url_to_remove }}" class="remove-item">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <h1> Cart </h1>
-    
-    {% for item in cart.items %}
+        <hr/>
+        <br/>
+
         <div>
-            <img src="{{ item.image | product_img_url: 'medium' }}" alt="{{ item.title }}">
-            <h2>{{ item.title }}</h2>
-            <p>{{ item.price | money }}</p>
-            <input name="updates[{{ item.id }}]" type="number" value="{{ item.quantity }}">
-            <a href="{{item.url_to_remove}}" >Remove</a>
+            <label for="promo-code">Promotion Code:</label>
+            <input type="text" id="promo-code">
+            <button id="apply-promo-btn">Apply</button>
         </div>
-    {% endfor %}
 
-    <hr/>
+        <br/>
 
-    <p>Total: {{ cart.total_price | money }}</p>
+        <p class="total">{{ 'Total' | upcase }}: {{ cart.total_price | money }}</p>
+        <p>Discounted Price: <span id="discounted-price">100.00</span> CAD</p>
 
-    
-    <button type="submit" name="update">
-        update
-    </button>
-
-
-    <button type="submit" name="checkout">Checkout</button>
-
-{% endform %}
-
+        <button type="submit" name="checkout" class="cart-btn black">Checkout</button>
+    {% endform %}
 </div>
