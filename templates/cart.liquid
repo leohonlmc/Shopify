@@ -1,5 +1,7 @@
 {% form 'cart', cart %}
 
+<div class="main"> 
+
     <h1> Cart </h1>
     
     {% for item in cart.items %}
@@ -25,3 +27,5 @@
     <button type="submit" name="checkout">Checkout</button>
 
 {% endform %}
+
+</div>

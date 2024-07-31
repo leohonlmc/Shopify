@@ -1,17 +1,32 @@
-<h1>{{product.title}}</h1>
-<p>{{product.price | money}}</p>
-<div>
-    {{product.description}}
+<div class="main"> 
+
+<div class="row">
+    
+    <div class="col-lg-6"> 
+        <img src="{{ product.featured_image | product_img_url: 'large' }}" alt="{{ product.title }}">
+    </div>
+
+    <div class="col-lg-6 product-info"> 
+        <h1>{{product.title}}</h1>
+        <p>CAD {{product.price | money}}</p>
+        <br/>
+        <div>
+            {{product.description}}
+        </div>
+
+        <br/>
+
+        {% form 'product', product %}
+            <select name="id">
+                {% for variant in  product.variants %}
+                    <option class="options" value={{ variant.id }}>
+                        {{ variant.title }} - {{ variant.price | money }}
+                    </option>
+                {% endfor %}
+            </select> 
+
+            <button class="cart-btn" type="submit">Add to cart</button>
+        {% endform %}
+        </div>
+    </div>
 </div>
-
-{% form 'product', product %}
-    <select name="id">
-        {% for variant in  product.variants %}
-            <option value={{ variant.id }}>
-                {{ variant.title }} - {{ variant.price | money }}
-            </option>
-        {% endfor %}
-    </select>
-
-    <button type="submit">Add to cart</button>
-{% endform %}

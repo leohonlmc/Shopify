@@ -1,15 +1,24 @@
 {% comment %} <h2>{{ collections['frontpage'].title }}</h2> {% endcomment %}
 
-<h3>Popular items</h3>
+<div class="sale-img-div"> 
+    <img src="{{ 'sale.jpg' | asset_url }}" alt="Sale"/>
+</div>
 
-<div class="product-list">
-    {% for product in collections['frontpage'].products %}
-    <div class="product-item"> 
-        <a href="{{ product.url }}">
-            <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}">
-            <p>{{ product.title }}</p>
-            <p>{{ product.price | money }}</p>
-        </a>
+<br/>
+
+<div class="main"> 
+    <h3>Popular items</h3>
+    <div class="product-list">
+
+        {% for product , index in collections['frontpage'].products %}
+        <div class="product-item"> 
+            <a href="{{ product.url }}">
+                <img class="product-img" src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}">
+                <span class="product-title">{{ product.title }}</span>
+                <p>{{ product.title }}</p>
+                <p>CAD {{ product.price | money }}</p>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
