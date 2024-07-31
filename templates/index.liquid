@@ -1,0 +1,15 @@
+{% comment %} <h2>{{ collections['frontpage'].title }}</h2> {% endcomment %}
+
+<h3>Popular items</h3>
+
+<div class="product-list">
+    {% for product in collections['frontpage'].products %}
+    <div class="product-item"> 
+        <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | product_img_url: 'medium' }}" alt="{{ product.title }}">
+            <p>{{ product.title }}</p>
+            <p>{{ product.price | money }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
