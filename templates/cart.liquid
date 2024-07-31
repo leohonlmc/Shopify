@@ -32,6 +32,25 @@
             </tbody>
         </table>
 
+        <table class="cart-table-mobile">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart.items %}
+                <tr>
+                    <td>{{ item.title }} size {{ item.variant.options[0] }} x{{ item.quantity }}</td>
+                    <td>{{ item.line_price | money }}</td>
+                    <td><a href="{{ item.url_to_remove }}" class="remove-item">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
         <hr/><br/>
 
         <div>

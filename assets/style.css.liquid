@@ -178,6 +178,10 @@ footer {
   border-top: 1px solid #dee2e6;
 }
 
+.cart-table-mobile {
+  display: none;
+}
+
 @media (max-width: 1200px) {
   .product-item {
     flex: 1 1 calc(25% - 20px);
@@ -193,5 +197,11 @@ footer {
 @media (max-width: 600px) {
   .product-item {
     flex: 1 1 100%;
+  }
+  .cart-table {
+    display: none;
+  }
+  .cart-table-mobile {
+    display: block;
   }
 }
