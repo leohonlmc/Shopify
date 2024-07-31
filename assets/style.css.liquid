@@ -11,11 +11,24 @@ h4,
 h5,
 h6,
 p {
-  margin: 0 !important;
+  margin: 0;
 }
 
 h2 {
   font-weight: bold !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: #333 !important;
+}
+
+.main {
+  padding: 16px;
+}
+
+.row {
+  margin-top: 50px;
 }
 
 .nav {
@@ -25,24 +38,12 @@ h2 {
   padding: 16px !important;
 }
 
-.main {
-  padding: 16px;
-}
-
-a {
-  text-decoration: none !important;
-  color: #333 !important;
-}
-
 .product-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0 -10px;
-}
-
-.product-info {
   padding: 16px;
+  margin: 0 -10px;
 }
 
 .product-item {
@@ -52,6 +53,11 @@ a {
   box-sizing: border-box;
   text-align: left;
 }
+
+.product-info {
+  padding: 16px;
+}
+
 .product-img {
   border-radius: 5px;
   width: 100%;
@@ -73,7 +79,10 @@ a {
   color: white;
   border-radius: 40px;
   border: none;
-  margin-top: 20px !important;
+  margin-top: 20px;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .cart-btn.black {
@@ -84,22 +93,8 @@ a {
   background-color: grey;
 }
 
-.product-list {
-  padding: 16px;
-}
-
-.row {
-  margin-top: 50px;
-}
-
-footer {
-  padding: 40px;
-  text-align: center;
-  background-image: url("./background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: white;
-  margin-top: 100px;
+.cart-btn.black:hover {
+  background-color: #0056b3;
 }
 
 .cart-table {
@@ -127,17 +122,9 @@ footer {
   text-decoration: underline;
 }
 
-.cart-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.cart-btn.black:hover {
-  background-color: #0056b3;
+.price-details {
+  display: flex;
+  align-items: center;
 }
 
 .total {
@@ -145,10 +132,14 @@ footer {
   font-weight: bold;
 }
 
-.border-radius {
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
-  border-top: 1px solid #dee2e6;
+.total del {
+  color: #999;
+  margin-right: 10px;
+}
+
+.discounted-price {
+  color: green;
+  font-weight: bold;
 }
 
 #promo-code {
@@ -169,6 +160,22 @@ footer {
 
 #apply-promo-btn:hover {
   background-color: #0056b3;
+}
+
+footer {
+  padding: 40px;
+  text-align: center;
+  background-image: url("./background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  margin-top: 100px;
+}
+
+.border-radius {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  border-top: 1px solid #dee2e6;
 }
 
 @media (max-width: 1200px) {

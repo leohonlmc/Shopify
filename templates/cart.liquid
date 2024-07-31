@@ -1,7 +1,6 @@
 <div class="main border-radius">
     <h1>Cart</h1>
-    <br/>
-    <br/>
+    <br/><br/>
 
     {% form 'cart', cart %}
         <table class="cart-table">
@@ -24,11 +23,7 @@
                         <img src="{{ item.image | product_img_url: 'medium' }}" alt="{{ item.title }}">
                     </td>
                     <td>{{ item.price | money }}</td>
-                    <td>
-                        {% assign variant = item.variant %}
-                        {% assign size = variant.options[0] %}
-                        {{ size }}
-                    </td>
+                    <td>{{ item.variant.options[0] }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.line_price | money }}</td>
                     <td><a href="{{ item.url_to_remove }}" class="remove-item">Remove</a></td>
@@ -37,8 +32,7 @@
             </tbody>
         </table>
 
-        <hr/>
-        <br/>
+        <hr/><br/>
 
         <div>
             <label for="promo-code">Promotion Code:</label>
@@ -48,8 +42,8 @@
 
         <br/>
 
-        <p class="total">{{ 'Total' | upcase }}: {{ cart.total_price | money }}</p>
-        <p>Discounted Price: <span id="discounted-price">100.00</span> CAD</p>
+        <p class="total" id="total-price">{{ 'Total' | upcase }}: {{ cart.total_price | money }}</p>
+        <p><span id="discounted-price"></span></p>
 
         <button type="submit" name="checkout" class="cart-btn black">Checkout</button>
     {% endform %}

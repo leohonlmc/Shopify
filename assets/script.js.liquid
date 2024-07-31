@@ -1,15 +1,66 @@
-// URL Update: ● Update the URL to reflect the selected variant using the History API without reloading the page.
-
 document.addEventListener("DOMContentLoaded", function () {
   var variantSelect = document.getElementById("variant-select");
 
-  variantSelect.addEventListener("change", function () {
-    var selectedOption = variantSelect.options[variantSelect.selectedIndex];
-    var newUrl = selectedOption.getAttribute("data-url");
+  if (variantSelect) {
+    variantSelect.addEventListener("change", function () {
+      var selectedOption = variantSelect.options[variantSelect.selectedIndex];
+      var newUrl = selectedOption.getAttribute("data-url");
 
-    // Update the URL in the browser without reloading the page
-    if (newUrl !== window.location.href) {
-      history.pushState(null, "", newUrl);
-    }
-  });
+      if (newUrl !== window.location.href) {
+        history.pushState(null, "", newUrl);
+      }
+    });
+  }
+
+  // D). AJAX Request:Describe how you would use AJAX to fetch product data from a Shopify store's public API.
+
+  var applyPromoBtn = document.getElementById("apply-promo-btn");
+  if (applyPromoBtn) {
+    applyPromoBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      var promoCode = document.getElementById("promo-code").value;
+
+      var totalPriceText = document.getElementById("total-price").innerText;
+      var totalPrice = parseFloat(totalPriceText.replace(/[^0-9.-]+/g, ""));
+
+      console.log("Promo code:", promoCode);
+      console.log("Total price:", totalPrice);
+
+      $.ajax({
+        url: "http://localhost:3000/promotion",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ code: promoCode, totalPrice: totalPrice }),
+        success: function (response) {
+          if (response.success) {
+            var discountedPrice = parseFloat(response.discountedPrice);
+
+            if (!isNaN(discountedPrice)) {
+              var totalPriceElement = document.getElementById("total-price");
+              var discountedPriceElement =
+                document.getElementById("discounted-price");
+
+              totalPriceElement.innerHTML = `<del>{{ 'Total' | upcase }}: ${totalPrice.toFixed(
+                2
+              )} CAD</del>`;
+
+              discountedPriceElement.innerHTML = `Discounted Price: <span style="color: green; font-weight: bold;">${discountedPrice.toFixed(
+                2
+              )} CAD</span>`;
+
+              alert("Promotion applied! You saved " + response.discount + "%");
+            } else {
+              console.error("Invalid discounted price returned from server.");
+            }
+          } else {
+            alert(response.message);
+          }
+        },
+        error: function (error) {
+          console.error("Error applying promotion:", error);
+        },
+      });
+    });
+  }
 });
